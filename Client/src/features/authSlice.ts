@@ -4,10 +4,12 @@ export interface AuthState {
   name: string | null;
   userAuthToken: string | null;
   userRefreshToken: string | null;
+  roles: string | null;
 }
 
 const initialState: AuthState = {
   name: null,
+  roles: null,
   userAuthToken: null,
   userRefreshToken: null,
 };
@@ -22,17 +24,20 @@ export const authSlice = createSlice({
         name: string;
         userAuthToken: string;
         userRefreshToken: string;
+        roles: string;
       }>
     ) => {
       state.name = action.payload.name;
       state.userAuthToken = action.payload.userAuthToken;
       state.userRefreshToken = action.payload.userRefreshToken;
+      state.roles = action.payload.roles;
       localStorage.setItem(
         "user",
         JSON.stringify({
           name: action.payload.name,
           userAuthToken: action.payload.userAuthToken,
           userRefreshToken: action.payload.userRefreshToken,
+          role: action.payload.roles,
         })
       );
     },
@@ -41,6 +46,7 @@ export const authSlice = createSlice({
       state.name = null;
       state.userAuthToken = null;
       state.userRefreshToken = null;
+      state.roles = null;
     },
   },
 });

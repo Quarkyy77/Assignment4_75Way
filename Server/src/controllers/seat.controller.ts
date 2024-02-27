@@ -10,7 +10,7 @@ export const freeSeats = async () => {
         booking.coachNumber
       );
       const train = await User.Train.findById(coach.trainId);
-      train.seatsAvailable += booking.seatCount;
+      train.coach.coachNumber.seatsAvailable += booking.seatCount;
       await train.save();
     });
   } catch (err) {

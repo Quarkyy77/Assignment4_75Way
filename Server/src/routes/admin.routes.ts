@@ -5,6 +5,7 @@ import {
   createTrain,
   createAndAddCoach,
   getAllTrains,
+  updateTrainStation,
 } from "../controllers/admin.controller";
 
 const router = express.Router();
@@ -17,5 +18,11 @@ router.post(
   createAndAddCoach
 );
 router.get("/getAllTrains", isUserAuthenticated, checkRole, getAllTrains);
+router.post(
+  "/updateTrainStation",
+  isUserAuthenticated,
+  checkRole,
+  updateTrainStation
+);
 
 export default router;

@@ -20,7 +20,7 @@ export const authApi = createApi({
         Name: string;
         password: string;
         email: string;
-        role: string;
+        roles: string;
       }) => {
         return {
           url: "api/auth/register",

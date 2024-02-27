@@ -11,16 +11,15 @@ import { setUser } from "../features/authSlice";
 
 const initialState = {
   Name: "",
-  location: "",
   email: "",
   password: "",
-  role: "",
+  roles: "",
   confirmPassword: "",
 };
 
 const Auth = () => {
   const [formValue, setFormValue] = useState(initialState);
-  const { Name, email, password, confirmPassword, role } = formValue;
+  const { Name, email, password, confirmPassword, roles } = formValue;
   const [showRegister, setShowRegister] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -51,18 +50,24 @@ const Auth = () => {
       ...formValue,
 
       [e.target.name]: e.target.value,
-      role: e.target.value,
     });
     console.log(formValue);
     e.preventDefault();
+  };
+  const handleSelect = (e: any) => {
+    console.log(e.target.value);
+    setFormValue({
+      ...formValue,
+      roles: e.target.value,
+    });
   };
   const handleRegister = async () => {
     if (password !== confirmPassword) {
       return toast.error("Passwords do not match");
     }
-    if (Name && email && password && role) {
-      console.log(Name, email, password, role);
-      await registerUser({ Name, email, password, role });
+    if (Name && email && password && roles) {
+      console.log(Name, email, password, roles);
+      await registerUser({ Name, email, password, roles });
     }
   };
 
@@ -79,6 +84,7 @@ const Auth = () => {
           name: LoginData.user.Name,
           userAuthToken: LoginData.userAuthToken,
           userRefreshToken: LoginData.userRefreshToken,
+          roles: LoginData.user.roles,
         })
       );
       navigate("/dashboard");
@@ -167,10 +173,10 @@ const Auth = () => {
                     <div className="form-outline form-white mb-4">
                       <select
                         className="form form-control-lg"
-                        onChange={handleChange}>
+                        onChange={handleSelect}>
                         <option selected>Select Role</option>
-                        <option value="Admin">Admin</option>
                         <option value="User">User</option>
+                        <option value="Admin">Admin</option>
                       </select>
                     </div>
                   )}

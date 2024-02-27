@@ -85,3 +85,27 @@ export const getAllTrains = async (
     });
   }
 };
+
+export const updateTrainStation = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { trainId, currentStation } = req.body;
+    const train = await Train.findById(trainId);
+    if (!train) {
+      return res.status(404).json({
+        message: "Train not found...",
+      });
+    }
+    train.currentStation = currentStation;
+    await train.save();
+    return res.status(200).json({
+      message: "Train station updated successfully...",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Server Error...",
+    });
+  }
+};
