@@ -43,12 +43,10 @@ export const createAndAddCoach = async (
   res: express.Response
 ) => {
   try {
-    const { typeOfCoach, totalSeats, availableSeats, fare, trainId } = req.body;
+    const { totalSeats, availableSeats, trainId } = req.body;
     const coach = new Coach({
-      typeOfCoach,
       totalSeats,
       availableSeats,
-      fare,
       trainId,
     });
     await coach.save();
