@@ -7,7 +7,6 @@ import { connectToDatabase } from "./connectToDatabase";
 import authRoutes from "./routes/auth.routes";
 import userRoutes from "./routes/user.routes";
 import AdminRoutes from "./routes/admin.routes";
-import driverRoutes from "./routes/driver.routes";
 dotenv.config();
 import cron from "node-cron";
 import { freeSeats } from "./controllers/seat.controller";
@@ -54,4 +53,3 @@ cron.schedule("* * * * *", () => {
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/admin", AdminRoutes);
-app.use("/api/driver", driverRoutes);
