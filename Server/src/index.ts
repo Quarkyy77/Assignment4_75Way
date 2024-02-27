@@ -9,6 +9,8 @@ import userRoutes from "./routes/user.routes";
 import AdminRoutes from "./routes/admin.routes";
 import driverRoutes from "./routes/driver.routes";
 dotenv.config();
+import cron from "node-cron";
+import { freeSeats } from "./controllers/seat.controller";
 
 declare global {
   namespace Express {
@@ -40,6 +42,11 @@ app.get("/", (req: express.Request, res: express.Response) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
+});
+
+// Schedule cron job to free seats
+cron.schedule("* * * * *", () => {
+  freeSeats();
 });
 
 // Routes

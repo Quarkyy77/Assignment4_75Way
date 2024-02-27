@@ -20,7 +20,7 @@ export const bookTicket = async (
     } = req.body;
     if (!user) {
       return res.status(404).json({
-        message: "user not found...",
+        message: "Login to continue...",
       });
     }
     const Ticket = new Booking({
