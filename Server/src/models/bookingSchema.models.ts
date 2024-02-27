@@ -6,11 +6,6 @@ const bookingSchema = new mongoose.Schema({
     ref: "Train",
     required: true,
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
   sourceStation: {
     type: String,
     required: true,
@@ -34,4 +29,4 @@ const bookingSchema = new mongoose.Schema({
   coachNumber: { type: Number, required: true },
 });
 
-export const Booking = mongoose.model("BookingRequest", bookingSchema);
+export const Booking = mongoose.model("Booking", bookingSchema);

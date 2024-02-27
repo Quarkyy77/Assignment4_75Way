@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   roles: { type: String, enum: ["Admin", "User"], default: "User" },
   Trains: [{ type: mongoose.Schema.Types.ObjectId, ref: "Train" }],
+  Tickets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Booking" }],
   resetToken: { type: String },
   resetTokenExpiry: { type: Date },
 });

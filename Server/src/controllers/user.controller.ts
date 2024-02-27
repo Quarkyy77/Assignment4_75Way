@@ -1,39 +1,102 @@
 import express from "express";
 import { User } from "../models/user.models";
-import { ShiftingRequest } from "../models/request.models";
+import { Booking } from "../models/bookingSchema.models";
 import { sendMail } from "../utils/mailing";
 import bcryptjs from "bcryptjs";
 
-export const createShiftRequest = async (
+export const bookTicket = async (
   req: express.Request,
   res: express.Response
 ) => {
   try {
-    const { fromAddress, toAddress } = req.body;
-
     const user = await User.findById({ _id: req.userId });
+
+    const {
+      trainId,
+      sourceStation,
+      destinationStation,
+      seatCount,
+      coachNumber,
+    } = req.body;
     if (!user) {
       return res.status(404).json({
         message: "user not found...",
       });
     }
-    const shiftingRequest = new ShiftingRequest({
-      fromAddress: fromAddress,
-      toAddress: toAddress,
-      status: "New",
-      rent: Math.floor(Math.random() * 10000),
+    const Ticket = new Booking({
+      trainId,
+      sourceStation,
+      destinationStation,
+      seatCount,
+      totalFare: user.fare * seatCount,
+      bookingTime: new Date(),
+      coachNumber,
     });
-    await shiftingRequest.save();
+    await Ticket.save();
     await User.findByIdAndUpdate(req.userId, {
-      $push: { requests: shiftingRequest._id },
+      $push: { Tickets: Ticket._id },
     });
     return res.status(201).json({
-      rent: shiftingRequest.rent,
-      message: " successfully created shift request...",
+      rent: Ticket.totalFare,
+      message: " successfully Booked Your Ticket...",
     });
   } catch (err) {
     return res.status(500).json({
-      message: "Unable to send request...",
+      message: "Internal server error...",
+    });
+  }
+};
+
+export const showAvailableSeats = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { trainId } = req.body;
+    const user = await User.findById({ _id: req.userId });
+    if (!user) {
+      return res.status(404).json({
+        message: "Login to check available seats...",
+      });
+    }
+    const train = await User.Trains.findById({ _id: trainId });
+    const tickets = await Booking.find({ trainId: train.trainId });
+    let bookedSeats = 0;
+    tickets.forEach((ticket) => {
+      bookedSeats += ticket.seatCount;
+    });
+    return res.status(200).json({
+      availableSeats: user.coaches * user.coaches.seatCount - bookedSeats,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Internal server error...",
+    });
+  }
+};
+
+export const checkTrains = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { sourceStation, destinationStation } = req.body;
+    const user = await User.findById({ _id: req.userId });
+    if (!user) {
+      return res.status(404).json({
+        message: "Please login to check trains...",
+      });
+    }
+    const trains = await User.Trains.find({
+      startStation: sourceStation,
+      Destinations: destinationStation,
+    });
+    return res.status(200).json({
+      trains,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Internal server error...",
     });
   }
 };
