@@ -61,13 +61,14 @@ export const showAvailableSeats = async (
       });
     }
     const train = await User.Trains.findById({ _id: trainId });
-    const tickets = await Booking.find({ trainId: train.trainId });
-    let bookedSeats = 0;
-    tickets.forEach((ticket) => {
-      bookedSeats += ticket.seatCount;
+    var totalSeats = 0;
+    train.coaches.forEach((coach: any) => {
+      if (coach.availableSeats > 0) {
+        totalSeats += coach.availableSeats;
+      }
     });
     return res.status(200).json({
-      availableSeats: user.coaches * user.coaches.seatCount - bookedSeats,
+      availableSeats: totalSeats,
     });
   } catch (err) {
     return res.status(500).json({

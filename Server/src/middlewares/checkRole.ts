@@ -9,7 +9,7 @@ export const checkRole = async (
 ) => {
   const user: any = await User.findById(req.userId);
 
-  if (user.role === "Admin") {
+  if (user.role === "User") {
     return res.status(400).json({
       message:
         "Unauthorized access..., You are not authorized to access this page...",
