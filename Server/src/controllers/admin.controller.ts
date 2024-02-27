@@ -1,6 +1,6 @@
 import express from "express";
 import { Driver } from "../models/driver.models";
-import { Vehicle } from "../models/vehicle.models";
+import { Vehicle } from "../models/train.models";
 import { User } from "../models/user.models";
 import { ShiftingRequest } from "../models/request.models";
 import { sendMail } from "../utils/mailing";
