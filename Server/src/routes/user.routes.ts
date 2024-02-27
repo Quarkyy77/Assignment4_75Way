@@ -15,5 +15,5 @@ router.post("/updatePassword", updatePassword);
 router.post("/reset-password/:token", resetPassword);
 router.get("/showAvailableSeats", isUserAuthenticated, showAvailableSeats);
 router.get("/checkTrains", isUserAuthenticated, checkTrains);
-router.post("/bookTicket", isUserAuthenticated, bookTicket);
+router.post("/bookTicket/:id", isUserAuthenticated, bookTicket);
 export default router;

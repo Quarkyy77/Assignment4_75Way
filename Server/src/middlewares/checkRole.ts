@@ -1,5 +1,5 @@
-import express, { Express, NextFunction, Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import { NextFunction, Request, Response } from "express";
+
 import { User } from "../models/user.models";
 
 export const checkRole = async (
@@ -11,7 +11,8 @@ export const checkRole = async (
 
   if (user.role === "Admin") {
     return res.status(400).json({
-      message: "unauthorized access...",
+      message:
+        "Unauthorized access..., You are not authorized to access this page...",
     });
   }
   return next();

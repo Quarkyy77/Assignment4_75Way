@@ -10,19 +10,14 @@ export const bookTicket = async (
 ) => {
   try {
     const user = await User.findById({ _id: req.userId });
-
-    const {
-      trainId,
-      sourceStation,
-      destinationStation,
-      seatCount,
-      coachNumber,
-    } = req.body;
     if (!user) {
       return res.status(404).json({
         message: "Login to continue...",
       });
     }
+    const { sourceStation, destinationStation, seatCount, coachNumber } =
+      req.body;
+    const { trainId } = req.params;
     const Ticket = new Booking({
       trainId,
       sourceStation,
@@ -36,10 +31,12 @@ export const bookTicket = async (
     await User.findByIdAndUpdate(req.userId, {
       $push: { Tickets: Ticket._id },
     });
+
     const coach = await User.Trains.findById({ _id: trainId }).coaches[
       coachNumber - 1
     ];
     coach.availableSeats -= seatCount;
+    await coach.save();
     return res.status(201).json({
       rent: Ticket.totalFare,
       message: " successfully Booked Your Ticket...",
