@@ -15,7 +15,9 @@ const Redirect = () => {
 
   return (
     <div className="vh-100 gradient-custom">
-      <h2 className="mt-7">Redirecting you to homepage in {count} seconds</h2>
+      <h2 className="mt-7">
+        Unauthorized!!!! <br></br>Redirecting you to homepage in {count} seconds
+      </h2>
     </div>
   );
 };

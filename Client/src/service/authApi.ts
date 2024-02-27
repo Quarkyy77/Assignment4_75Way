@@ -29,6 +29,36 @@ export const authApi = createApi({
         };
       },
     }),
+    createTrain: builder.mutation({
+      query: (body: {
+        typeOfTrain: string;
+        arrivalTime: string;
+        departureTime: string;
+        fare: number;
+        startStation: string;
+        destinations: string;
+      }) => {
+        return {
+          url: "api/auth/admin/createTrain",
+          method: "POST",
+          body,
+        };
+      },
+    }),
+
+    createAndAddCoach: builder.mutation({
+      query: (body: {
+        totalSeats: number;
+        availableSeats: number;
+        trainId: string;
+      }) => {
+        return {
+          url: "api/auth/admin/createAndAddCoach",
+          method: "POST",
+          body,
+        };
+      },
+    }),
 
     UpdatePassword: builder.mutation({
       query: (body: { email: string }) => {
@@ -56,4 +86,6 @@ export const {
   useRegisterUserMutation,
   useUpdatePasswordMutation,
   useResetPasswordMutation,
+  useCreateTrainMutation,
+  useCreateAndAddCoachMutation,
 } = authApi;

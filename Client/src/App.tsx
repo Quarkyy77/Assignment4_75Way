@@ -10,6 +10,12 @@ import { setUser } from "./features/authSlice";
 import PrivateRoute from "./Layouts/PrivateRoute";
 import UpdatePassword from "./pages/UpdatePassword";
 import ResetPassword from "./pages/ResetPassword";
+import BookTicket from "./pages/BookTicket";
+import CheckTrains from "./pages/CheckTrains";
+import CreateTrain from "./pages/CreateTrain";
+import UpdateTrainStation from "./pages/UpdateTrainStation";
+import ViewAllTrains from "./pages/ViewAllTrains";
+import CreateCoach from "./pages/CreateCoach";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -40,6 +46,54 @@ function App() {
             element={
               <PrivateRoute>
                 <Dashboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/bookTicket"
+            element={
+              <PrivateRoute>
+                <BookTicket />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/checkTrains"
+            element={
+              <PrivateRoute>
+                <CheckTrains />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/createTrain"
+            element={
+              <PrivateRoute>
+                <CreateTrain />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/createCoach"
+            element={
+              <PrivateRoute>
+                <CreateCoach />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/updateTrainStation"
+            element={
+              <PrivateRoute>
+                <UpdateTrainStation />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/viewAllTrains"
+            element={
+              <PrivateRoute>
+                <ViewAllTrains />
               </PrivateRoute>
             }
           />

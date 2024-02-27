@@ -26,8 +26,19 @@ const Dashboard = () => {
                       <button
                         className="btn btn-outline-light btn-lg px-5 mt-3"
                         type="button"
-                        onClick={() => navigate("/CreateTrainAndCoach")}>
-                        Add Train And Coach
+                        onClick={() => navigate("/createTrain")}>
+                        Add Train
+                      </button>
+                    </>
+                  )}
+                  <br></br>
+                  {roles === "Admin" && (
+                    <>
+                      <button
+                        className="btn btn-outline-light btn-lg px-5 mt-3"
+                        type="button"
+                        onClick={() => navigate("/createCoach")}>
+                        Add and Assign Coach
                       </button>
                     </>
                   )}
@@ -36,7 +47,7 @@ const Dashboard = () => {
                       <button
                         className="btn btn-outline-light btn-lg px-5 mt-3"
                         type="button"
-                        onClick={() => navigate("/ViewAllTrains")}>
+                        onClick={() => navigate("/viewAllTrains")}>
                         View All Trains
                       </button>
                     </>
@@ -46,7 +57,7 @@ const Dashboard = () => {
                       <button
                         className="btn btn-outline-light btn-lg px-5 mt-3"
                         type="button"
-                        onClick={() => navigate("/UpdateTrainStation")}>
+                        onClick={() => navigate("/updateTrainStation")}>
                         Update Current station of Train
                       </button>
                     </>
@@ -57,7 +68,7 @@ const Dashboard = () => {
                       <button
                         className="btn btn-outline-light btn-lg px-5 mt-3"
                         type="button"
-                        onClick={() => navigate("/BookTicket")}>
+                        onClick={() => navigate("/bookTicket")}>
                         Book Ticket
                       </button>
                     </>
@@ -67,7 +78,7 @@ const Dashboard = () => {
                       <button
                         className="btn btn-outline-light btn-lg px-5 mt-3"
                         type="button"
-                        onClick={() => navigate("/CheckTrains")}>
+                        onClick={() => navigate("/checkTrains")}>
                         Check Trains
                       </button>
                     </>
