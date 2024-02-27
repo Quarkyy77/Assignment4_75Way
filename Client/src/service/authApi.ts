@@ -59,6 +59,19 @@ export const authApi = createApi({
         };
       },
     }),
+    UpdateTrainStation: builder.mutation({
+      query: (body: {
+        totalSeats: number;
+        availableSeats: number;
+        trainId: string;
+      }) => {
+        return {
+          url: "api/auth/admin/updateTrainStation",
+          method: "POST",
+          body,
+        };
+      },
+    }),
 
     UpdatePassword: builder.mutation({
       query: (body: { email: string }) => {
@@ -88,4 +101,5 @@ export const {
   useResetPasswordMutation,
   useCreateTrainMutation,
   useCreateAndAddCoachMutation,
+  useUpdateTrainStationMutation,
 } = authApi;
