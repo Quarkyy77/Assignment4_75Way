@@ -28,7 +28,7 @@ export const bookTicket = async (
       sourceStation,
       destinationStation,
       seatCount,
-      totalFare: user.fare * seatCount,
+      totalFare: user.fare * seatCount + (5 / 100 + user.fare * seatCount),
       bookingTime: new Date(),
       coachNumber,
     });
@@ -36,6 +36,10 @@ export const bookTicket = async (
     await User.findByIdAndUpdate(req.userId, {
       $push: { Tickets: Ticket._id },
     });
+    const coach = await User.Trains.findById({ _id: trainId }).coaches[
+      coachNumber - 1
+    ];
+    coach.availableSeats -= seatCount;
     return res.status(201).json({
       rent: Ticket.totalFare,
       message: " successfully Booked Your Ticket...",

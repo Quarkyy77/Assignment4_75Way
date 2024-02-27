@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-const Train = new mongoose.Schema({
-  type: { type: String, required: true },
-  coaches: { type: mongoose.Schema.Types.ObjectId, required: true },
-  ArrivalTime: { type: String, required: true },
+const TrainSchema = new mongoose.Schema({
+  typeOfTrain: { type: String, required: true },
+  coaches: [{ type: mongoose.Schema.Types.ObjectId, required: true }],
+  arrivalTime: { type: String, required: true },
   departureTime: { type: String, required: true },
   fare: { type: Number, required: true },
   startStation: { type: String, required: true },
-  Destinations: [{ type: String, required: true }],
-  currentStation: { type: String, required: true },
+  destinations: [{ type: String, required: true }],
+  currentStation: { type: String },
 });
 
-export const Vehicle = mongoose.model("Train", Train);
+export const Train = mongoose.model("Train", TrainSchema);
